@@ -11,14 +11,13 @@ RUN rm -rf node_modules \
 
 USER node
 
-
 FROM base as release
 
 USER root
 RUN npm install --only=production \
  #&& apk add --no-cache tini \
  && chown -R node /opt/app \
- && chmod 755 -R /opt/app/shell
+ && chmod 755 /opt/app/shell/*  
 
 USER node
 ENV HOME_DIR=/opt/app \
@@ -32,6 +31,8 @@ FROM base as build
 USER root
 RUN npm install -g nodemon \
  && npm install \
- && chown -R node /opt/app
+ && chown -R node /opt/app \
+ && ls -al /opt/app/shell \
+ && chmod 755 -R /opt/app/shell
 
 USER node
