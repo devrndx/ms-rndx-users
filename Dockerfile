@@ -31,8 +31,8 @@ FROM base as build
 USER root
 RUN npm install -g nodemon \
  && npm install \
- && chown -R node /opt/app \
- && chmod 755 -R /opt/app/shell/* \
- && ls -al /opt/app/shell 
+ && chown -R node /opt/app
+RUN chmod 755 ./shell/run-db-migration.sh
 
 USER node
+ENV PORT=5501

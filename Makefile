@@ -6,26 +6,26 @@ NODE_ENV?=dev
 COMMIT_HASH = $(shell git rev-parse --verify HEAD)
 
 .PHONY: start
-start: 
+start:
 	docker-compose -p ${project} up -d
 
 .PHONY: stop
-stop: 
+stop:
 	docker-compose -p ${project} down
 
 .PHONY: restart
 restart: stop start
 
 .PHONY: logs
-logs: 
+logs:
 	docker-compose -p ${project} logs -f ${service}
 
 .PHONY: logs-db
-logs-db: 
+logs-db:
 	docker-compose -p ${project} logs -f ${service}-db
 
 .PHONY: ps
-ps: 
+ps:
 	docker-compose -p ${project} ps
 
 .PHONY: build

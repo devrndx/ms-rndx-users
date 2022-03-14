@@ -3,6 +3,8 @@ version: "3.4"
 services:
   ms-rndx-users:
     container_name: ms-rndx-users
+    labels:
+      #- "traefik.backend=ms-srt-users"
       - "traefik.enable=true"
       - "traefik.http.routers.ms-srt-users.rule=PathPrefix(`/users`)"
     user: root # avoids ton of volume mounting headaches in dev mode.
