@@ -23,7 +23,7 @@ function serviceRoutes(app) {
     app.use(check.express());
 
     /* eslint-disable global-require */
-    const safesitelist = ['https://rndx-wallet.io', 'https://app.rndx-wallet.io', 'https://admin.rndx-wallet.io'];
+    const safesitelist = ['https://rndx-wallet.io', 'https://app.rndx-wallet.io', 'https://admin.rndx-wallet.io', '*', 'http://localhost:34129'];
 
     const corsOptions = {
         origin: function(origin, callback) {
@@ -32,6 +32,7 @@ function serviceRoutes(app) {
         },
         credentials: true
     };
+    app.use(cors(corsOptions));
 
     app.use('/users', require('users')); // attach to sub-route
 
