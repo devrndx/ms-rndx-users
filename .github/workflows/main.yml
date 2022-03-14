@@ -29,4 +29,4 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: devrndx/ms-rndx-users:v0.0.5
+        tags: devrndx/ms-rndx-users:v0.0.6
