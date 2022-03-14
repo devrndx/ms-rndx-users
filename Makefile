@@ -51,15 +51,24 @@ install-dev-package-in-container: start
 
 .PHONY: migration-create
 migration-create: start
-	docker-compose -p ${project} exec ${service} node_modules/db-migrate/bin/db-migrate create ${name} --sql-file
+	docker-compose -p ${project} exec ${service} ./node_modules/db-migrate/bin/db-migrate create ${name} --sql-file
+	sudo chown -R $$USER ./migrations/sqls/
+
+.PHONY: migrate-local
+migrate-local:
+	node_modules/db-migrate/bin/db-migrate up -e ${NODE_ENV}
 
 .PHONY: migrate
 migrate: start
-	docker-compose -p ${project} exec ${service} node_modules/db-migrate/bin/db-migrate up -e ${NODE_ENV}
+	docker-compose -p ${project} exec ${service} make migrate-local
 
 .PHONY: shell
 shell:
 	docker-compose -p ${project} exec ${service} sh
+
+.PHONY: mysql
+mysql:
+	docker-compose -p ${project} exec ${service}-db mysql -u root -pverysecretsomething
 
 .PHONY: test
 test: start test-exec
