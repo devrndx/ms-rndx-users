@@ -1,7 +1,7 @@
 default: start
 
-project:=ms-rndx-users-proj
-service:=ms-rndx-users
+project:=srt-user-managed-project
+service:=ms-srt-users
 NODE_ENV?=dev
 COMMIT_HASH = $(shell git rev-parse --verify HEAD)
 

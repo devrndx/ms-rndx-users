@@ -10,20 +10,23 @@ require('app-module-path').addPath(path.join(__dirname, '/lib'));
 
 // Add all routes and route-handlers for your service/app here:
 function serviceRoutes(app) {
+
     // For Liveness Probe, defaults may be all you need.
     const livenessCheck = healthcheck({ "path": "/ping" });
     app.use(livenessCheck.express());
 
-    // Add advanced healthcheck middleware (incl. database check)
+    // For readiness check, let's also test the DB
     const check = healthcheck();
     const AdvancedHealthcheckers = require('healthchecks-advanced');
     const advCheckers = new AdvancedHealthcheckers();
     // Database health check is cached for 10000ms = 10 seconds!
-    check.addCheck('db', 'usersQuery', advCheckers.dbUsersCheck, { minCacheMs: 10000 });
+    check.addCheck('db', 'dbQuery', advCheckers.dbCheck, { minCacheMs: 10000 });
     app.use(check.express());
 
     /* eslint-disable global-require */
-    const safesitelist = ['https://rndx-wallet.io', 'https://app.rndx-wallet.io', 'https://admin.rndx-wallet.io', '*', 'http://localhost:34129'];
+
+    // Temporary allow all urls
+    const safesitelist = ['https://srt-wallet.io', 'https://app.srt-wallet.io', 'https://admin.srt-wallet.io'];
 
     const corsOptions = {
         origin: function(origin, callback) {
@@ -32,9 +35,10 @@ function serviceRoutes(app) {
         },
         credentials: true
     };
-    app.use(cors(corsOptions));
 
+    app.use(cors(corsOptions));
     app.use('/users', require('users')); // attach to sub-route
+    // app.use('/register', require('users')); // attach to sub-route
 
     /* eslint-enable global-require */
 }

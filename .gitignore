@@ -127,4 +127,5 @@ Temporary Items
 
 .nyc_output
 package-lock.json
-firebase_certification.json
+.vscode
+firebase.env
