@@ -37,3 +37,5 @@ RUN chmod 755 ./shell/run-db-migration.sh
 
 USER node
 ENV PORT=5501
+
+ENTRYPOINT ./shell/run-db-migration.sh && node server.js
