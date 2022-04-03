@@ -1,7 +1,4 @@
 /* Replace with your SQL commands */
-remove redanduncy samples
-f6f0355
-/* Replace with your SQL commands */
 INSERT INTO `users` (`id`, `uuid`, `name`, `email`, `phonenum`, `wallet_address`, `balance`,`withdraw_limit`,`privateKey`, `created`, `last_updated`)
 VALUES
 	(7, '5fc0a65e-c67a-4a15-811e-bd24e8e7ef5f', 'test6', 'test9@test.com', '01012341224', '0x5b7171534bd972951cf39ba93e49f88595e508ff','300',100,'0xb00be5c2bc3fcc3110fe498cada412338d75c8c02eb8a0dddbffb02b4e37925f','2017-03-20 01:28:20', '2017-04-18 01:30:58'),
