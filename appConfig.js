@@ -31,6 +31,7 @@ function serviceRoutes(app) {
             "https://app.rndx-wallet.io",
             "https://admin.rndx-wallet.io",
         ] : [
+            "http://192.168.0.7:34129",
             "https://dev.rndx-wallet.io",
             "https://app.dev.rndx-wallet.io",
             "https://admin.dev.rndx-wallet.io",
