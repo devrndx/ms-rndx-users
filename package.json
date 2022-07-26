@@ -17,6 +17,7 @@
         "bcrypt": "^5.0.1",
         "bluebird": "^3.7.2",
         "body-parser": "^1.19.0",
+        "bn.js": "^5.2.1",
         "config": "^3.3.6",
         "cors": "^2.8.5",
         "crypto-js": "^4.1.1",
@@ -61,9 +62,9 @@
     },
     "scripts": {
         "start": "nodemon -L -e js,coffee,jade,handlebars server.js",
-        "lint": "eslint lib test",
-        "pretest": "npm run lint",
-        "test": "nyc mocha --bail test/ test/**/*-test.js",
+        "lint": "eslint lib test --fix",
+        "pretest": "npm run lint --fix",
+        "test": "nyc mocha --bail test/ test/**/*-test.js --timeout 10000",
         "test-cov": "nyc mocha test/ test/**/*-test.js"
     },
     "mocha": {
