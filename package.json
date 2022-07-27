@@ -23,8 +23,10 @@
         "crypto-js": "^4.1.1",
         "db-migrate": "^0.11.12",
         "db-migrate-mysql": "^2.1.2",
+        "dotnet": "^1.1.4",
         "duration": "^0.2.2",
         "express": "^4.17.1",
+        "express-session": "^1.17.2",
         "express-validator": "^6.10.0",
         "firebase-admin": "^10.0.2",
         "glob": "^7.1.6",
@@ -41,6 +43,7 @@
         "passport-firebase-jwt": "^1.2.1",
         "promise-mysql": "^5.0.3",
         "spieler": "^1.2.1",
+        "queue": "^6.0.2",
         "uuid": "^8.3.2"
     },
     "devDependencies": {
