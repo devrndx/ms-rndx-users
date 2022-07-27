@@ -5,8 +5,11 @@ const log = require("metalogger")();
 const healthcheck = require("maikai");
 const hbs = require("hbs");
 const cors = require("cors");
-
+const morgan = require("morgan");
 require("app-module-path").addPath(path.join(__dirname, "/lib"));
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 // Add all routes and route-handlers for your service/app here:
 function serviceRoutes(app) {
@@ -21,7 +24,7 @@ function serviceRoutes(app) {
   // Database health check is cached for 10000ms = 10 seconds!
   check.addCheck("db", "dbQuery", advCheckers.dbCheck, { minCacheMs: 10000 });
   app.use(check.express());
-
+  app.use(morgan("dev"));
   /* eslint-disable global-require */
 
   // Temporary allow all urls
@@ -77,18 +80,30 @@ function setupErrorHandling(app) {
   });
 }
 
-exports.setup = function (app, callback) {
-  // Choose your favorite view engine(s)
-  app.set("view engine", "handlebars");
-  app.engine("handlebars", hbs.__express);
+exports.setup = function(app, callback) {
+    // Choose your favorite view engine(s)
+    app.set("view engine", "handlebars");
+    app.engine("handlebars", hbs.__express);
 
-  /** Adding security best-practices middleware
-   * see: https://www.npmjs.com/package/helmet **/
-  app.use(helmet());
+    /** Adding security best-practices middleware
+     * see: https://www.npmjs.com/package/helmet **/
 
-  //---- Mounting well-encapsulated application modules (so-called: "mini-apps")
-  //---- See: http://expressjs.com/guide/routing.html and http://vimeo.com/56166857
-  serviceRoutes(app);
+    const cspOptions = {
+        directives: {
+            ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+            "script-src": ["'unsafe-inline'"],
+        }
+    }
+
+    app.use(helmet({
+            contentSecurityPolicy: cspOptions,
+        }
+
+    ));
+
+    //---- Mounting well-encapsulated application modules (so-called: "mini-apps")
+    //---- See: http://expressjs.com/guide/routing.html and http://vimeo.com/56166857
+    serviceRoutes(app);
 
   setupErrorHandling(app);
 
